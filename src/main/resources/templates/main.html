@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en">
-<head th:replace="~{fragments/common :: head('Share Book')}">
+<head th:replace="fragments/common :: head('Share Book')">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bootstrap demo</title>
@@ -16,8 +16,9 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
 
-<nav class="navbar navbar-expand navbar-dark bg-dark" aria-label="Second navbar example"
-     th:replace="~{fragments/common :: header('main')}" \>
+<nav class="navbar navbar-expand navbar-dark bg-dark py-4" aria-label="Second navbar example"
+    th:replace="fragments/common :: header('main')" \>
+
     <div class="container-fluid">
         <a class="navbar-brand" href="main.html" th:href="@{/}">Share Book</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample02"
@@ -39,10 +40,10 @@
             </ul>
 
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
+                <li class="nav-item-signIn">
                     <a class="nav-link" href="#">로그인</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item-signUp">
                     <a class="nav-link" href="#">회원가입</a>
                 </li>
             </ul>
@@ -53,13 +54,13 @@
 <div id="carouselExample" class="carousel slide">
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img src="/static/img/ShareBook_Service1.png" class="d-block w-100" alt="img1">
+            <img src="/img/ShareBook_Service1.png" class="d-block w-100" alt="img1">
         </div>
         <div class="carousel-item">
-            <img src="/static/img/ShareBook_Service2.png" class="d-block w-100" alt="img2">
+            <img src="/img/ShareBook_Service2.png" class="d-block w-100" alt="img2">
         </div>
         <div class="carousel-item">
-            <img src="/static/img/ShareBook_Service3.png" class="d-block w-100" alt="img3">
+            <img src="/img/ShareBook_Service3.png" class="d-block w-100" alt="img3">
         </div>
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
@@ -72,10 +73,9 @@
     </button>
 </div>
 
-<div class="container marketing">
-
+<div class="container marketing mt-4">
     <!-- Three columns of text below the carousel -->
-    <div class="row  pt-4 pb-4">
+    <div class="row  pt-4">
         <div class="col-lg-4">
             <h2 class="fw-normal"> 비행운 / 김애란 </h2>
             <p> 연쇄적으로 펼쳐지는 비극의 탐색 </p>
@@ -92,17 +92,18 @@
             <p><a class="btn btn-secondary" href="#">리뷰 자세히 &raquo;</a></p>
         </div><!-- /.col-lg-4 -->
     </div><!-- /.row -->
+</div>
 
-    <div class="container">
-        <footer class="py-3 pt-4 my-4">
-            <ul class="nav justify-content-center border-bottom pb-2 mb-2">
-                <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Features</a></li>
-                <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">About</a></li>
-                <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Blog</a></li>
-            </ul>
-            <p class="text-center text-body-secondary">Share Book created by hrming </p>
-        </footer>
-    </div>
+<div class="container"  th:replace="fragments/common :: footer" \>>
+    <footer class="py-3 pt-4 my-4">
+        <ul class="nav justify-content-center border-bottom pb-2 mb-2">
+            <li class="nav-item"><a href="#" class="nav-link px-3 text-body-secondary">Share Book 제작 의도</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-3 text-body-secondary">개발 환경</a></li>
+            <li class="nav-item"><a href="https://hrimg.tistory.com/" class="nav-link px-3 text-body-secondary">블로그</a></li>
+            <li class="nav-item"><a href="https://github.com/HaerimShim/shareBook" class="nav-link px-3 text-body-secondary">GitHub</a></li>
+        </ul>
+        <p class="text-center text-body-secondary">Share Book created by hrming </p>
+    </footer>
 </div>
 
 <script>

@@ -1,7 +1,25 @@
 body {
     padding-bottom: 20px;
+    font-family: "Noto Sans KR", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
 }
 
 .navbar {
     margin-bottom: 20px;
+    font-family: "Black Han Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-size: 140%;
+    font-style: normal;
+}
+
+.navbar-brand {
+    margin-left: 40px;
+    font-size: 140%;
+}
+
+.nav-item-signUp{
+    margin-right: 100px;
 }
