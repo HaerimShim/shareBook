@@ -23,3 +23,18 @@ body {
 .nav-item-signUp{
     margin-right: 100px;
 }
+
+
+html, body {
+    height: 100%
+}
+
+#wrap {
+    min-height: 100%;
+    position: relative;
+    padding-bottom: 50px;
+}
+
+footer {
+    bottom: 0;
+}

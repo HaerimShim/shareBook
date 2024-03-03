@@ -9,7 +9,6 @@
 
     <!-- Custom styles for this template -->
     <link href="navbars.css" th:href="@{/css/navbars.css}" rel="stylesheet">
-    <link href="navbars.css" th:href="@{/css/reviewList.css}" rel="stylesheet">
 </head>
 
 <body>
@@ -51,179 +50,190 @@
     </div>
 </nav>
 
-<div class="container py-4">
+<div class="container pt-4">
     <div class="reviewList">
-        <h2>리뷰 게시판</h2>
-<!--        <div>총 리뷰 수 : <span th:text="${#lists.size((boards))}"></span>-->
+        <h2>책을 읽고 난 뒤, 다양한 의견을 공유하는 공간입니다. :)</h2>
+        <!--        <div>총 리뷰 수 : <span th:text="${#lists.size((boards))}"></span>-->
 
-            <div class="input-group mb-3 mt-3" style="width: 800px; float: left; ">
-                <input type="text" class="form-control" placeholder="검색어를 입력하세요." >
-                <button class="btn btn-outline-dark" type="button" id="button-addon2" >검색</button>
+        <div class="mt-4">
+            <div class="input-group" style="width: 800px; float: left; ">
+                <input type="text" class="form-control" placeholder="검색어를 입력하세요.">
+                <button class="btn btn-outline-dark" type="button" id="button-addon2">검색</button>
             </div>
 
-            <div style="float: right;">
+            <div class="mb-4" style="float: right;">
                 <button type="button" class="btn btn-outline-dark" style="float: right;">리뷰 작성</button>
             </div>
+        </div>
 
-            <table class="table table-hover my-4">
-                <thead>
-                <tr>
-                    <th> No.</th>
-                    <th> 책정보</th>
-                    <th> 평점</th>
-                    <th> 한줄평</th>
-                    <th> 작성일</th>
-                    <th> 작성자</th>
-                </tr>
-                </thead>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th> No.</th>
+                <th> 책정보</th>
+                <th> 평점</th>
+                <th> 한줄평</th>
+                <th> 추천♥</th>
+                <th> 작성일</th>
+                <th> 작성자</th>
+            </tr>
+            </thead>
 
-                <tbody>
-                <tr>
-                    <td> 1</td>
-                    <td> 비행운 / 김애란</td>
-                    <td> 4.0 / 5.0</td>
-                    <td> 연쇄적으로 펼쳐지는 비극의 탐색</td>
-                    <td> 2024-03-02</td>
-                    <td> hrming</td>
-                </tr>
-                </tbody>
+            <tbody>
+            <tr>
+                <td> 1</td>
+                <td> 비행운 / 김애란</td>
+                <td> 4.0 / 5.0</td>
+                <td> 연쇄적으로 펼쳐지는 비극의 탐색</td>
+                <th> 123</th>
+                <td> 2024-03-02</td>
+                <td> hrming</td>
+            </tr>
+            </tbody>
 
-                <tbody>
-                <tr>
-                    <td> 2</td>
-                    <td> 비행운 / 김애란</td>
-                    <td> 4.0 / 5.0</td>
-                    <td> 연쇄적으로 펼쳐지는 비극의 탐색</td>
-                    <td> 2024-03-02</td>
-                    <td> hrming</td>
-                </tr>
-                </tbody>
+            <tbody>
+            <tr>
+                <td> 2</td>
+                <td> 비행운 / 김애란</td>
+                <td> 4.0 / 5.0</td>
+                <td> 연쇄적으로 펼쳐지는 비극의 탐색</td>
+                <th> 123</th>
+                <td> 2024-03-02</td>
+                <td> hrming</td>
+            </tr>
+            </tbody>
 
-                <tbody>
-                <tr>
-                    <td> 3</td>
-                    <td> 비행운 / 김애란</td>
-                    <td> 4.0 / 5.0</td>
-                    <td> 연쇄적으로 펼쳐지는 비극의 탐색</td>
-                    <td> 2024-03-02</td>
-                    <td> hrming</td>
-                </tr>
-                </tbody>
+            <tbody>
+            <tr>
+                <td> 3</td>
+                <td> 비행운 / 김애란</td>
+                <td> 4.0 / 5.0</td>
+                <td> 연쇄적으로 펼쳐지는 비극의 탐색</td>
+                <th> 123</th>
+                <td> 2024-03-02</td>
+                <td> hrming</td>
+            </tr>
+            </tbody>
 
-                <tbody>
-                <tr>
-                    <td> 4</td>
-                    <td> 비행운 / 김애란</td>
-                    <td> 4.0 / 5.0</td>
-                    <td> 연쇄적으로 펼쳐지는 비극의 탐색</td>
-                    <td> 2024-03-02</td>
-                    <td> hrming</td>
-                </tr>
-                </tbody>
+            <tbody>
+            <tr>
+                <td> 4</td>
+                <td> 비행운 / 김애란</td>
+                <td> 4.0 / 5.0</td>
+                <td> 연쇄적으로 펼쳐지는 비극의 탐색</td>
+                <th> 123</th>
+                <td> 2024-03-02</td>
+                <td> hrming</td>
+            </tr>
+            </tbody>
 
-                <tbody>
-                <tr>
-                    <td> 5</td>
-                    <td> 비행운 / 김애란</td>
-                    <td> 4.0 / 5.0</td>
-                    <td> 연쇄적으로 펼쳐지는 비극의 탐색</td>
-                    <td> 2024-03-02</td>
-                    <td> hrming</td>
-                </tr>
-                </tbody>
+            <tbody>
+            <tr>
+                <td> 5</td>
+                <td> 비행운 / 김애란</td>
+                <td> 4.0 / 5.0</td>
+                <td> 연쇄적으로 펼쳐지는 비극의 탐색</td>
+                <th> 123</th>
+                <td> 2024-03-02</td>
+                <td> hrming</td>
+            </tr>
+            </tbody>
 
-                <tbody>
-                <tr>
-                    <td> 6</td>
-                    <td> 비행운 / 김애란</td>
-                    <td> 4.0 / 5.0</td>
-                    <td> 연쇄적으로 펼쳐지는 비극의 탐색</td>
-                    <td> 2024-03-02</td>
-                    <td> hrming</td>
-                </tr>
-                </tbody>
+            <tbody>
+            <tr>
+                <td> 6</td>
+                <td> 비행운 / 김애란</td>
+                <td> 4.0 / 5.0</td>
+                <td> 연쇄적으로 펼쳐지는 비극의 탐색</td>
+                <th> 123</th>
+                <td> 2024-03-02</td>
+                <td> hrming</td>
+            </tr>
+            </tbody>
 
-                <tbody>
-                <tr>
-                    <td> 7</td>
-                    <td> 비행운 / 김애란</td>
-                    <td> 4.0 / 5.0</td>
-                    <td> 연쇄적으로 펼쳐지는 비극의 탐색</td>
-                    <td> 2024-03-02</td>
-                    <td> hrming</td>
-                </tr>
-                </tbody>
+            <tbody>
+            <tr>
+                <td> 7</td>
+                <td> 비행운 / 김애란</td>
+                <td> 4.0 / 5.0</td>
+                <td> 연쇄적으로 펼쳐지는 비극의 탐색</td>
+                <th> 123</th>
+                <td> 2024-03-02</td>
+                <td> hrming</td>
+            </tr>
+            </tbody>
 
-                <tbody>
-                <tr>
-                    <td> 8</td>
-                    <td> 비행운 / 김애란</td>
-                    <td> 4.0 / 5.0</td>
-                    <td> 연쇄적으로 펼쳐지는 비극의 탐색</td>
-                    <td> 2024-03-02</td>
-                    <td> hrming</td>
-                </tr>
-                </tbody>
+            <tbody>
+            <tr>
+                <td> 8</td>
+                <td> 비행운 / 김애란</td>
+                <td> 4.0 / 5.0</td>
+                <td> 연쇄적으로 펼쳐지는 비극의 탐색</td>
+                <th> 123</th>
+                <td> 2024-03-02</td>
+                <td> hrming</td>
+            </tr>
+            </tbody>
 
-                <tbody>
-                <tr>
-                    <td> 9</td>
-                    <td> 비행운 / 김애란</td>
-                    <td> 4.0 / 5.0</td>
-                    <td> 연쇄적으로 펼쳐지는 비극의 탐색</td>
-                    <td> 2024-03-02</td>
-                    <td> hrming</td>
-                </tr>
-                </tbody>
+            <tbody>
+            <tr>
+                <td> 9</td>
+                <td> 비행운 / 김애란</td>
+                <td> 4.0 / 5.0</td>
+                <td> 연쇄적으로 펼쳐지는 비극의 탐색</td>
+                <th> 123</th>
+                <td> 2024-03-02</td>
+                <td> hrming</td>
+            </tr>
+            </tbody>
 
+            <tbody>
+            <tr>
+                <td> 10</td>
+                <td> 비행운 / 김애란</td>
+                <td> 4.0 / 5.0</td>
+                <td> 연쇄적으로 펼쳐지는 비극의 탐색</td>
+                <th> 123</th>
+                <td> 2024-03-02</td>
+                <td> hrming</td>
+            </tr>
+            </tbody>
 
-                <tbody>
-                <tr>
-                    <td> 10</td>
-                    <td> 비행운 / 김애란</td>
-                    <td> 4.0 / 5.0</td>
-                    <td> 연쇄적으로 펼쳐지는 비극의 탐색</td>
-                    <td> 2024-03-02</td>
-                    <td> hrming</td>
-                </tr>
-                </tbody>
+        </table>
 
-            </table>
-
-            <div>
-                <div style="text-align: center;">
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination justify-content-center">
-                            <li class="page-item disabled">
-                                <a class="page-link"> < </a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#"> > </a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
+        <div>
+            <div style="text-align: center;">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item disabled">
+                            <a class="page-link"> < </a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#"> > </a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
         </div>
     </div>
+</div>
 
-
-    <div class="container" th:replace="fragments/common :: footer" \>
-        <footer class="py-3 pt-4 my-4">
-            <ul class="nav justify-content-center border-bottom pb-2 mb-2">
-                <li class="nav-item"><a href="#" class="nav-link px-3 text-body-secondary">Share Book 제작 의도</a></li>
-                <li class="nav-item"><a href="#" class="nav-link px-3 text-body-secondary">개발 환경</a></li>
-                <li class="nav-item"><a href="https://hrimg.tistory.com/"
-                                        class="nav-link px-3 text-body-secondary">블로그</a></li>
-                <li class="nav-item"><a href="https://github.com/HaerimShim/shareBook"
-                                        class="nav-link px-3 text-body-secondary">GitHub</a></li>
-            </ul>
-            <p class="text-center text-body-secondary">Share Book created by hrming </p>
-        </footer>
-    </div>
+<div class="container" th:replace="fragments/common :: footer" \>
+    <footer class="py-3 pt-4 my-4">
+        <ul class="nav justify-content-center border-bottom pb-2 mb-2">
+            <li class="nav-item"><a href="#" class="nav-link px-3 text-body-secondary">Share Book 제작 의도</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-3 text-body-secondary">개발 환경</a></li>
+            <li class="nav-item"><a href="https://hrimg.tistory.com/"
+                                    class="nav-link px-3 text-body-secondary">블로그</a></li>
+            <li class="nav-item"><a href="https://github.com/HaerimShim/shareBook"
+                                    class="nav-link px-3 text-body-secondary">GitHub</a></li>
+        </ul>
+        <p class="text-center text-body-secondary">Share Book created by hrming </p>
+    </footer>
+</div>
 </div>
 </body>
 </html>

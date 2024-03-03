@@ -2,3 +2,7 @@
     width:100vw;
     height:50vh;
 }
+
+ .review-info p {
+     margin-bottom: 5px; /* 변경할 마진 값 */
+ }
