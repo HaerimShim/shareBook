@@ -23,4 +23,9 @@ public class ReviewCtrl {
         model.addAttribute("boards", boards);
         return "reviewList";
     }
+
+    @GetMapping("/read")
+    public String getReviewRead(Model model) {
+        return "reviewRead";
+    }
 }
