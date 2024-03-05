@@ -1,0 +1,6 @@
+.form-check-inline-group {
+    display: flex;
+}
+.form-check-inline {
+    margin-right: 10px;
+}
