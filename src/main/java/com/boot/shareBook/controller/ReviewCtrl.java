@@ -6,8 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -24,8 +27,29 @@ public class ReviewCtrl {
         return "reviewList";
     }
 
+    @GetMapping("/write")
+    public String getReviewWrite(Model model) {
+        model.addAttribute("board", new Board());
+        return "reviewWrite";
+    }
+
+    @PostMapping("/write")
+    public String postReviewWrite(@ModelAttribute Board board) {
+        boardRepository.save(board);
+        return "redirect:/review/list";
+    }
+
     @GetMapping("/read")
-    public String getReviewRead(Model model) {
+    public String getReviewRead(Model model, Long id) {
+        Board board = boardRepository.findById(id).orElse(null);
+        model.addAttribute("board", board );
         return "reviewRead";
+    }
+
+    @GetMapping("/delete")
+    public String deleteReview(Model model, Long id) {
+        Board board = boardRepository.findById(id).orElse(null);
+        boardRepository.delete(board);
+        return "redirect:/review/list";
     }
 }

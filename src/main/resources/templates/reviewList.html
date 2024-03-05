@@ -66,139 +66,30 @@
             </div>
         </div>
 
-        <table class="table table-hover">
+        <table class="table table-hover" style="min-height: 460px;">
             <thead>
             <tr>
                 <th> No.</th>
                 <th> 책정보</th>
                 <th> 평점</th>
                 <th> 한줄평</th>
-                <th> 추천♥</th>
+                <th> 추천</th>
                 <th> 작성일</th>
                 <th> 작성자</th>
             </tr>
             </thead>
 
             <tbody>
-            <tr>
-                <td> 1</td>
-                <td> 비행운 / 김애란</td>
-                <td> 4.0 / 5.0</td>
-                <td> 연쇄적으로 펼쳐지는 비극의 탐색</td>
-                <th> 123</th>
-                <td> 2024-03-02</td>
-                <td> hrming</td>
+            <tr id="table" th:each="board : ${boards}">
+                <td th:text="${board.id}">1</td>
+                <td th:text="${board.title + '/' + board.writer}">비행운 / 김애란</td>
+                <td th:text="${board.rating + ' / 5'}">4.0 / 5.0</td>
+                <td> <a th:text="${board.comment}">연쇄적으로 펼쳐지는 비극의 탐색 </a></td>
+                <td th:text="${board.recommend} == null ? '0' : ${board.recommend}">123</td>
+                <td th:text="${#dates.format(board.date, 'yyyy-MM-dd')}">2024-03-02</td>
+                <td th:text="${board.user}">hrming</td>
             </tr>
             </tbody>
-
-            <tbody>
-            <tr>
-                <td> 2</td>
-                <td> 비행운 / 김애란</td>
-                <td> 4.0 / 5.0</td>
-                <td> 연쇄적으로 펼쳐지는 비극의 탐색</td>
-                <th> 123</th>
-                <td> 2024-03-02</td>
-                <td> hrming</td>
-            </tr>
-            </tbody>
-
-            <tbody>
-            <tr>
-                <td> 3</td>
-                <td> 비행운 / 김애란</td>
-                <td> 4.0 / 5.0</td>
-                <td> 연쇄적으로 펼쳐지는 비극의 탐색</td>
-                <th> 123</th>
-                <td> 2024-03-02</td>
-                <td> hrming</td>
-            </tr>
-            </tbody>
-
-            <tbody>
-            <tr>
-                <td> 4</td>
-                <td> 비행운 / 김애란</td>
-                <td> 4.0 / 5.0</td>
-                <td> 연쇄적으로 펼쳐지는 비극의 탐색</td>
-                <th> 123</th>
-                <td> 2024-03-02</td>
-                <td> hrming</td>
-            </tr>
-            </tbody>
-
-            <tbody>
-            <tr>
-                <td> 5</td>
-                <td> 비행운 / 김애란</td>
-                <td> 4.0 / 5.0</td>
-                <td> 연쇄적으로 펼쳐지는 비극의 탐색</td>
-                <th> 123</th>
-                <td> 2024-03-02</td>
-                <td> hrming</td>
-            </tr>
-            </tbody>
-
-            <tbody>
-            <tr>
-                <td> 6</td>
-                <td> 비행운 / 김애란</td>
-                <td> 4.0 / 5.0</td>
-                <td> 연쇄적으로 펼쳐지는 비극의 탐색</td>
-                <th> 123</th>
-                <td> 2024-03-02</td>
-                <td> hrming</td>
-            </tr>
-            </tbody>
-
-            <tbody>
-            <tr>
-                <td> 7</td>
-                <td> 비행운 / 김애란</td>
-                <td> 4.0 / 5.0</td>
-                <td> 연쇄적으로 펼쳐지는 비극의 탐색</td>
-                <th> 123</th>
-                <td> 2024-03-02</td>
-                <td> hrming</td>
-            </tr>
-            </tbody>
-
-            <tbody>
-            <tr>
-                <td> 8</td>
-                <td> 비행운 / 김애란</td>
-                <td> 4.0 / 5.0</td>
-                <td> 연쇄적으로 펼쳐지는 비극의 탐색</td>
-                <th> 123</th>
-                <td> 2024-03-02</td>
-                <td> hrming</td>
-            </tr>
-            </tbody>
-
-            <tbody>
-            <tr>
-                <td> 9</td>
-                <td> 비행운 / 김애란</td>
-                <td> 4.0 / 5.0</td>
-                <td> 연쇄적으로 펼쳐지는 비극의 탐색</td>
-                <th> 123</th>
-                <td> 2024-03-02</td>
-                <td> hrming</td>
-            </tr>
-            </tbody>
-
-            <tbody>
-            <tr>
-                <td> 10</td>
-                <td> 비행운 / 김애란</td>
-                <td> 4.0 / 5.0</td>
-                <td> 연쇄적으로 펼쳐지는 비극의 탐색</td>
-                <th> 123</th>
-                <td> 2024-03-02</td>
-                <td> hrming</td>
-            </tr>
-            </tbody>
-
         </table>
 
         <div>
@@ -235,5 +126,17 @@
     </footer>
 </div>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelectorAll('table tbody tr').forEach(function(row) {
+            row.addEventListener('click', function() {
+                var id = row.querySelector('td:first-child').innerText;
+                window.location.href = "/review/read?id=" + id;
+            });
+        });
+    });
+</script>
+
 </body>
 </html>
