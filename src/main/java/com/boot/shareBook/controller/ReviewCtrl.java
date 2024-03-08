@@ -1,8 +1,8 @@
 package com.boot.shareBook.controller;
 
-import com.boot.shareBook.model.Board;
-import com.boot.shareBook.repository.BoardRepository;
-import com.boot.shareBook.validator.BoardValidator;
+import com.boot.shareBook.model.Review;
+import com.boot.shareBook.repository.ReviewRepository;
+import com.boot.shareBook.validator.ReviewValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,45 +20,45 @@ import java.util.List;
 public class ReviewCtrl {
 
     @Autowired
-    private BoardRepository boardRepository;
+    private ReviewRepository reviewRepository;
 
     @Autowired
-    private BoardValidator boardValidator;
+    private ReviewValidator reviewValidator;
 
     @GetMapping("/list")
     public String getReviewList(Model model) {
-        List<Board> boards = boardRepository.findAll();
-        model.addAttribute("boards", boards);
+        List<Review> reviews = reviewRepository.findAll();
+        model.addAttribute("reviews", reviews);
         return "reviewList";
     }
 
     @GetMapping("/write")
     public String getReviewWrite(Model model) {
-        model.addAttribute("board", new Board());
+        model.addAttribute("review", new Review());
         return "reviewWrite";
     }
 
     @PostMapping("/write")
-    public String postReviewWrite(@ModelAttribute Board board, BindingResult bindingResult) {
-        boardValidator.validate(board, bindingResult);
+    public String postReviewWrite(@ModelAttribute Review review, BindingResult bindingResult) {
+        reviewValidator.validate(review, bindingResult);
         if(bindingResult.hasErrors()){
             return "reviewWrite";
         }
-        boardRepository.save(board);
+        reviewRepository.save(review);
         return "redirect:/review/list";
     }
 
     @GetMapping("/read")
     public String getReviewRead(Model model, Long id) {
-        Board board = boardRepository.findById(id).orElse(null);
-        model.addAttribute("board", board );
+        Review review = reviewRepository.findById(id).orElse(null);
+        model.addAttribute("review", review );
         return "reviewRead";
     }
 
     @GetMapping("/delete")
     public String deleteReview(Model model, Long id) {
-        Board board = boardRepository.findById(id).orElse(null);
-        boardRepository.delete(board);
+        Review review = reviewRepository.findById(id).orElse(null);
+        reviewRepository.delete(review);
         return "redirect:/review/list";
     }
 }

@@ -11,7 +11,7 @@ import java.util.Date;
 
 @Entity
 @Data
-public class Board {
+public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

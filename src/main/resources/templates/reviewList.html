@@ -53,7 +53,6 @@
 <div class="container pt-4">
     <div class="reviewList">
         <h2>책을 읽고 난 뒤, 다양한 의견을 공유하는 공간입니다. :)</h2>
-        <!--        <div>총 리뷰 수 : <span th:text="${#lists.size((boards))}"></span>-->
 
         <div class="mt-4">
             <div class="input-group" style="width: 800px; float: left; ">
@@ -80,14 +79,14 @@
             </thead>
 
             <tbody>
-            <tr id="table" th:each="board : ${boards}">
-                <td th:text="${board.id}">1</td>
-                <td th:text="${board.title + '/' + board.writer}">비행운 / 김애란</td>
-                <td th:text="${board.rating + ' / 5'}">4.0 / 5.0</td>
-                <td> <a th:text="${board.comment}">연쇄적으로 펼쳐지는 비극의 탐색 </a></td>
-                <td th:text="${board.recommend} == null ? '0' : ${board.recommend}">123</td>
-                <td th:text="${#dates.format(board.date, 'yyyy-MM-dd')}">2024-03-02</td>
-                <td th:text="${board.user}">hrming</td>
+            <tr id="table" th:each="review : ${reviews}">
+                <td th:text="${review.id}">1</td>
+                <td th:text="${review.title + '/' + review.writer}">비행운 / 김애란</td>
+                <td th:text="${review.rating + ' / 5'}">4.0 / 5.0</td>
+                <td> <a th:text="${review.comment}">연쇄적으로 펼쳐지는 비극의 탐색 </a></td>
+                <td th:text="${review.recommend} == null ? '0' : ${review.recommend}">123</td>
+                <td th:text="${#dates.format(review.date, 'yyyy-MM-dd')}">2024-03-02</td>
+                <td th:text="${review.user}">hrming</td>
             </tr>
             </tbody>
         </table>
