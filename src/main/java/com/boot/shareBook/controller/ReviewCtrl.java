@@ -2,9 +2,11 @@ package com.boot.shareBook.controller;
 
 import com.boot.shareBook.model.Board;
 import com.boot.shareBook.repository.BoardRepository;
+import com.boot.shareBook.validator.BoardValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +22,9 @@ public class ReviewCtrl {
     @Autowired
     private BoardRepository boardRepository;
 
+    @Autowired
+    private BoardValidator boardValidator;
+
     @GetMapping("/list")
     public String getReviewList(Model model) {
         List<Board> boards = boardRepository.findAll();
@@ -34,7 +39,11 @@ public class ReviewCtrl {
     }
 
     @PostMapping("/write")
-    public String postReviewWrite(@ModelAttribute Board board) {
+    public String postReviewWrite(@ModelAttribute Board board, BindingResult bindingResult) {
+        boardValidator.validate(board, bindingResult);
+        if(bindingResult.hasErrors()){
+            return "reviewWrite";
+        }
         boardRepository.save(board);
         return "redirect:/review/list";
     }

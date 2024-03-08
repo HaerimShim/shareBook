@@ -63,31 +63,48 @@
             <div class="form-group row">
                 <label for="title" class="col-sm-2 col-form-label mb-2" style="display: flex; align-items: center; justify-content: center;">책 제목</label>
                 <div class="col-sm-10">
-                    <input type="text"  class="form-control" id="title"  th:field="${board.title}" placeholder="책 제목을 입력하세요">
+                    <input type="text"  class="form-control"  th:classappend="${#fields.hasErrors('title')} ? 'is-invalid'" id="title"  th:field="${board.title}" placeholder="책 제목을 입력하세요">
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('title')}" th:errors="${board.title}">
+                        책 제목 에러메세지
+                    </div>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="writer" class="col-sm-2 col-form-label mb-2" style="display: flex; align-items: center; justify-content: center;">저자</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="writer" th:field="${board.writer}" placeholder="저자를 입력하세요">
+                    <input type="text" class="form-control" th:classappend="${#fields.hasErrors('writer')} ? 'is-invalid'" id="writer" th:field="${board.writer}" placeholder="저자를 입력하세요">
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('writer')}" th:errors="${board.writer}">
+                        저자 에러메세지
+                    </div>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="rating" class="col-sm-2 col-form-label mb-2" style="display: flex; align-items: center; justify-content: center;">평점</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="rating" th:field="${board.rating}" placeholder="평점을 입력하세요. 5점 만점입니다.">
+                    <input type="text" class="form-control" onKeyup="this.value=this.value.replace(/[^-0-5]/g,'');"
+                           th:classappend="${#fields.hasErrors('rating')} ? 'is-invalid'" id="rating" th:field="${board.rating}" placeholder="평점을 입력하세요. 5점 만점입니다.">
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('rating')}" th:errors="${board.rating}">
+                        평점 에러메세지
+                    </div>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="comment" class="col-sm-2 col-form-label mb-2" style="display: flex; align-items: center; justify-content: center;">한줄평</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="comment" th:field="${board.comment}" placeholder="한줄평을 입력하세요">
+                    <input type="text" class="form-control" th:classappend="${#fields.hasErrors('comment')} ? 'is-invalid'" id="comment" th:field="${board.comment}" placeholder="한줄평을 입력하세요">
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('comment')}" th:errors="${board.comment}">
+                        한줄평 에러메세지
+                    </div>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="content" class="col-sm-2 col-form-label" style="display: flex; align-items: center; justify-content: center;">내용</label>
                 <div class="col-sm-10">
-                    <textarea class="form-control" id="content" rows="14" th:field="${board.content}" placeholder="내용을 입력하세요"></textarea>
+                    <textarea class="form-control"
+                              th:classappend="${#fields.hasErrors('content')} ? 'is-invalid'" id="content" rows="14" th:field="${board.content}" placeholder="내용을 입력하세요"></textarea>
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('content')}" th:errors="${board.content}">
+                        내용 에러메세지
+                    </div>
                 </div>
             </div>
             <div class="btn-group mr-2 mt-2" role="group" aria-label="Basic example" style="float: right">
@@ -125,6 +142,7 @@
         let formattedDate = year + "-" + month + "-" + day;
         document.getElementById('date').value = formattedDate;
     };
+
 </script>
 
 
