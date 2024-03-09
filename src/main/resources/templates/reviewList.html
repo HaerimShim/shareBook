@@ -55,14 +55,15 @@
         <h2>책을 읽고 난 뒤, 다양한 의견을 공유하는 공간입니다. :)</h2>
 
         <div class="mt-4">
-            <div class="input-group" style="width: 800px; float: left; ">
-                <input type="text" class="form-control" placeholder="검색어를 입력하세요.">
-                <button class="btn btn-outline-dark" type="button" id="button-addon2">검색</button>
-            </div>
-
-            <div class="mb-4" style="float: right;">
-                <a class="btn btn-outline-dark" style="float: right;" href="#" th:href=" @{/review/write}">리뷰 작성</a>
-            </div>
+            <form method="GET" th:action="@{/review/list}">
+                <div class="input-group" style="width: 800px; float: left; ">
+                    <input type="text" class="form-control" id="searchText" name="searchText" th:value="${param.searchText}" placeholder="검색어를 입력하세요.">
+                    <button type="submit" class="btn btn-outline-dark" id="button-addon2">검색</button>
+                </div>
+            </form>
+                <div class="mb-4" style="float: right;">
+                    <a class="btn btn-dark" style="float: right;" href="#" th:href=" @{/review/write}">리뷰 작성</a>
+                </div>
         </div>
 
         <table class="table table-hover" style="min-height: 460px;">
@@ -95,14 +96,14 @@
             <div style="text-align: center;">
                 <nav aria-label="Page navigation example">
                     <ul class="pagination justify-content-center">
-                        <li class="page-item disabled">
-                            <a class="page-link"> < </a>
+                        <li class="page-item" th:classappend="${1 == reviews.pageable.pageNumber +1} ? 'disabled'">
+                            <a class="page-link" href="#" th:href="@{/review/list(page = ${reviews.pageable.pageNumber -1}, searchText = ${param.searchText})}"> < </a>
                         </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#"> > </a>
+                        <li class="page-item" th:classappend="${i == reviews.pageable.pageNumber +1} ? 'disabled'" th:each="i : ${#numbers.sequence(startPage, endPage)}" >
+                            <a class="page-link" href="#" th:href="@{/review/list(page = ${i -1}, searchText = ${param.searchText})}" th:text="${i}"}>1</a>
+                        </li>
+                        <li class="page-item" th:classappend="${reviews.totalPages == reviews.pageable.pageNumber +1} ? 'disabled'">
+                            <a class="page-link" href="#" th:href="@{/review/list(page = ${reviews.pageable.pageNumber +1}, searchText = ${param.searchText})}"> > </a>
                         </li>
                     </ul>
                 </nav>
