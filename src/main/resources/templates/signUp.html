@@ -56,97 +56,86 @@
      style="display: flex; justify-content: center; flex-direction: column; width: 400px;">
     <h1 class="h3 mt-4 mb-4 fw-normal">회원가입</h1>
 
-    <div class="form-floating">
-        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-        <label for="floatingInput">Email address</label>
-    </div>
-    <div class="form-floating mb-2">
-        <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-        <label for="floatingPassword">Password</label>
-    </div>
+    <form class="form" th:action="@{/user/signUp}" method="post">
+        <div class="form-floating">
+            <input type="email" class="form-control" id="username" name="username">
+            <label for="username">Email address</label>
+        </div>
+        <div class="form-floating mb-2">
+            <input type="password" class="form-control" id="password" name="password">
+            <label for="password">Password</label>
+        </div>
+        <div class="form-floating">
+            <input type="text" class="form-control" id="name" name="name">
+            <label for="name">이름</label>
+        </div>
+        <div class="form-floating">
+            <input type="text" class="form-control" id="nickname" name="nickname">
+            <label for="nickname">닉네임</label>
+        </div>
+        <div class="form-floating">
+            <input type="date" class="form-control" id="birthday" name="birthday">
+            <label for="birthday">생년월일</label>
+        </div>
 
-    <div class="form-floating">
-        <input type="text" class="form-control" id="floatingName" placeholder="Password">
-        <label for="floatingName">이름</label>
-    </div>
-    <div class="form-floating">
-        <input type="text" class="form-control" id="floatingBirthDay" placeholder="Password">
-        <label for="floatingBirthDay">생년월일</label>
-    </div>
-    <div class="form-floating">
-        <input type="text" class="form-control" id="floatingSex" placeholder="Password">
-        <label for="floatingSex">성별</label>
-    </div>
-    <div class="form-floating">
-        <input type="text" class="form-control" id="floatingNickName" placeholder="Password">
-        <label for="floatingNickName">닉네임</label>
-    </div>
+        <div class="bookType mt-2 mb-2">
+            <label>성별을 선택해주세요.</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" id="male" name="sex" th:value="M">
+            <label class="form-check-label" for="male"> 남 </label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" id="female" name="sex" th:value="F">
+            <label class="form-check-label" for="female"> 여 </label>
+        </div>
 
-    <div class="bookType mt-2 mb-2">
-        <label>관심있는 책 장르 3가지를 선택해주세요.</label>
-    </div>
-    <div class="form-check-inline-group mb-4">
-        <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-            <label class="form-check-label" for="inlineCheckbox1"> 소설&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
+        <div class="bookType mt-2 mb-2">
+            <label>관심있는 책 장르 3가지를 선택해주세요.</label>
         </div>
-        <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-            <label class="form-check-label" for="inlineCheckbox2"> 에세이 </label>
+        <div class="form-check-inline-group mb-4">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="bookType1" name="booktype"  th:value="Novel">
+                <label class="form-check-label" for="bookType1"> 소설&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="bookType2" name="booktype" th:value="Essay">
+                <label class="form-check-label" for="bookType2"> 에세이 </label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="bookType3" name="booktype" th:value="PersonalDevelopment">
+                <label class="form-check-label" for="bookType3"> 자기계발 </label>
+            </div>
+            <br>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="bookType4" name="booktype" th:value="Science">
+                <label class="form-check-label" for="bookType4"> 과학&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="bookType5" name="booktype" th:value="History">
+                <label class="form-check-label" for="bookType5"> 역사&nbsp;&nbsp;&nbsp;&nbsp; </label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="bookType6" name="booktype" th:value="Fantasy">
+                <label class="form-check-label" for="bookType6"> 판타지 </label>
+            </div>
+            <br>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="bookType7" name="booktype" th:value="ScienceFiction">
+                <label class="form-check-label" for="bookType7"> 공상과학 </label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="bookType8" name="booktype" th:value="Romance">
+                <label class="form-check-label" for="bookType8"> 로맨스 </label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="bookType9" name="booktype" th:value="Thriller">
+                <label class="form-check-label" for="bookType9"> 스릴러 </label>
+            </div>
         </div>
-        <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option2">
-            <label class="form-check-label" for="inlineCheckbox3"> 자기계발 </label>
-        </div> <br>
-        <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox4" value="option2">
-            <label class="form-check-label" for="inlineCheckbox4"> 과학&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
-        </div>
-        <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox5" value="option2">
-            <label class="form-check-label" for="inlineCheckbox5"> 역사&nbsp;&nbsp;&nbsp;&nbsp; </label>
-        </div>
-        <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox6" value="option2">
-            <label class="form-check-label" for="inlineCheckbox6"> 판타지 </label>
-        </div> <br>
-        <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox8" value="option2">
-            <label class="form-check-label" for="inlineCheckbox8"> 공상과학 </label>
-        </div>
-        <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox9" value="option2">
-            <label class="form-check-label" for="inlineCheckbox9"> 로맨스 </label>
-        </div>
-        <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox10" value="option2">
-            <label class="form-check-label" for="inlineCheckbox10"> 스릴러 </label>
-        </div>
-    </div>
 
-
-    <!--    <div class="form-check form-check-inline">-->
-<!--        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">-->
-<!--        <label class="form-check-label" for="inlineCheckbox1">1</label>-->
-<!--    </div>-->
-<!--    <div class="form-check form-check-inline">-->
-<!--        <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">-->
-<!--        <label class="form-check-label" for="inlineCheckbox2">2</label>-->
-<!--    </div>-->
-
-<!--    <div class="form-floating">-->
-<!--        <input type="text" class="form-control" id="floatingBookType1" placeholder="Password">-->
-<!--        <label for="floatingBookType1">관심장르1</label>-->
-<!--    </div>-->
-<!--    <div class="form-floating">-->
-<!--        <input type="text" class="form-control" id="floatingBookType2" placeholder="Password">-->
-<!--        <label for="floatingBookType2">관심장르2</label>-->
-<!--    </div>-->
-<!--    <div class="form-floating">-->
-<!--        <input type="text" class="form-control" id="floatingBookType3" placeholder="Password">-->
-<!--        <label for="floatingBookType3">관심장르3</label>-->
-<!--    </div>-->
-    <button class="btn btn-outline-dark w-100 mt-2" type="submit">회원가입</button>
+        <button class="btn btn-outline-dark w-100 mt-2" id="registerBtn" type="submit">회원가입</button>
+    </form>
 </div>
 
 <div class="container" th:replace="fragments/common :: footer" \>
@@ -162,6 +151,24 @@
         <p class="text-center text-body-secondary">Share Book created by hrming </p>
     </footer>
 </div>
+
+<script>
+    let checkboxes = document.getElementsByName('booktype');
+    for(var i = 0; i < checkboxes.length; i++) {
+        checkboxes[i].addEventListener('click', function() {
+            let checkedCount = 0;
+            for(var j = 0; j < checkboxes.length; j++) {
+                if(checkboxes[j].checked) {
+                    checkedCount++;
+                }
+            }
+            if(checkedCount > 3) {
+                alert('최대 3개까지만 선택할 수 있습니다.');
+                this.checked = false; // 현재 체크박스의 체크를 해제합니다.
+            }
+        });
+    }
+</script>
 
 </body>
 </html>
