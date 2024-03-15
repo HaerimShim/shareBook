@@ -21,6 +21,11 @@ public class UserService {
         user.setPassword(encodedPassword);
         user.setEnabled(true);
 
+        String[] booktypes = user.getBooktype().split(",");
+        user.setBooktype1(booktypes[0]);
+        user.setBooktype2(booktypes[1]);
+        user.setBooktype3(booktypes[2]);
+
         Role role =  new Role();
         role.setId(1l);
         user.getRoles().add(role);

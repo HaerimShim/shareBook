@@ -27,11 +27,6 @@ public class UserCtrl {
 
     @PostMapping("/signUp")
     public String signUp(User user) {
-        String[] booktypes = user.getBooktype().split(",");
-        user.setBooktype1(booktypes[0]);
-        user.setBooktype2(booktypes[1]);
-        user.setBooktype3(booktypes[2]);
-
         userService.save(user);
         return "redirect:/";
     }
