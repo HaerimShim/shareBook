@@ -56,26 +56,41 @@
      style="display: flex; justify-content: center; flex-direction: column; width: 400px;">
     <h1 class="h3 mt-4 mb-4 fw-normal">회원가입</h1>
 
-    <form class="form" th:action="@{/user/signUp}" method="post">
+    <form class="form" th:action="@{/user/signUp}" th:object="${user}" method="post">
         <div class="form-floating">
-            <input type="email" class="form-control" id="username" name="username">
+            <input type="email" class="form-control" th:classappend="${#fields.hasErrors('username')} ? 'is-invalid'" id="username" name="username">
             <label for="username">Email address</label>
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('username')}" th:errors="${user.username}">
+                username 에러메세지
+            </div>
         </div>
         <div class="form-floating mb-2">
-            <input type="password" class="form-control" id="password" name="password">
+            <input type="password" class="form-control" th:classappend="${#fields.hasErrors('password')} ? 'is-invalid'" id="password" name="password">
             <label for="password">Password</label>
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('password')}" th:errors="${user.password}">
+                password 에러메세지
+            </div>
         </div>
         <div class="form-floating">
-            <input type="text" class="form-control" id="name" name="name">
+            <input type="text" class="form-control" th:classappend="${#fields.hasErrors('name')} ? 'is-invalid'" id="name" name="name">
             <label for="name">이름</label>
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}" th:errors="${user.name}">
+                name 에러메세지
+            </div>
         </div>
         <div class="form-floating">
-            <input type="text" class="form-control" id="nickname" name="nickname">
+            <input type="text" class="form-control" th:classappend="${#fields.hasErrors('nickname')} ? 'is-invalid'" id="nickname" name="nickname">
             <label for="nickname">닉네임</label>
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('nickname')}" th:errors="${user.nickname}">
+                nickname 에러메세지
+            </div>
         </div>
         <div class="form-floating">
-            <input type="date" class="form-control" id="birthday" name="birthday">
+            <input type="date" class="form-control" th:classappend="${#fields.hasErrors('birthday')} ? 'is-invalid'" id="birthday" name="birthday">
             <label for="birthday">생년월일</label>
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('birthday')}" th:errors="${user.birthday}">
+                birthday 에러메세지
+            </div>
         </div>
 
         <div class="bookType mt-2 mb-2">
