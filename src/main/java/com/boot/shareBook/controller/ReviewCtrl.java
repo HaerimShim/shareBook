@@ -1,13 +1,17 @@
 package com.boot.shareBook.controller;
 
 import com.boot.shareBook.model.Review;
+import com.boot.shareBook.model.User;
 import com.boot.shareBook.repository.ReviewRepository;
+import com.boot.shareBook.service.UserService;
 import com.boot.shareBook.validator.ReviewValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,6 +30,10 @@ public class ReviewCtrl {
     @Autowired
     private ReviewValidator reviewValidator;
 
+    @Autowired
+    private UserService userService;
+
+
     @GetMapping("/list")
     public String getReviewList(Model model, @PageableDefault(size = 6) Pageable pageable, @RequestParam(required = false, defaultValue = "") String searchText) {
 //        Page<Review> reviews = reviewRepository.findAll(pageable);
@@ -41,7 +49,17 @@ public class ReviewCtrl {
 
     @GetMapping("/write")
     public String getReviewWrite(Model model) {
+        // 로그인한 유저 정보
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserDetails userDetails = (UserDetails)principal;
+        String username = userDetails.getUsername();
+
+        User user = new User();
+        user = userService.getUserInfo(username);
+
         model.addAttribute("review", new Review());
+        model.addAttribute("nickname", user.getNickname());
+        model.addAttribute("username", user.getName());
         return "reviewWrite";
     }
 

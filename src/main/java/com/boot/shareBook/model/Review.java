@@ -24,5 +24,6 @@ public class Review {
     private Long report;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date date;
-    private String user;
+    private String username;
+    private String nickname;
 }

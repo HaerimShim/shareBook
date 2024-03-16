@@ -60,6 +60,8 @@
 
         <form action="#" th:action="@{/review/write}" th:object="${review}" method="post">
             <input type="hidden" th:field="${review.date}" th:value="${today}">
+            <input type="hidden" name="username" th:value="${username}">
+            <input type="hidden" name="nickname" th:value="${nickname}">
             <div class="form-group row">
                 <label for="title" class="col-sm-2 col-form-label mb-2" style="display: flex; align-items: center; justify-content: center;">책 제목</label>
                 <div class="col-sm-10">
