@@ -59,7 +59,7 @@ public class ReviewCtrl {
 
         model.addAttribute("review", new Review());
         model.addAttribute("nickname", user.getNickname());
-        model.addAttribute("username", user.getName());
+        model.addAttribute("username", user.getUsername());
         return "reviewWrite";
     }
 
@@ -77,6 +77,16 @@ public class ReviewCtrl {
     @GetMapping("/read")
     public String getReviewRead(Model model, Long id) {
         Review review = reviewRepository.findById(id).orElse(null);
+
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserDetails userDetails = (UserDetails)principal;
+        String username = userDetails.getUsername();
+
+        User user = new User();
+        user = userService.getUserInfo(username);
+
+        model.addAttribute("nickname", user.getNickname());
+        model.addAttribute("username", user.getUsername());
         model.addAttribute("review", review );
         return "reviewRead";
     }
