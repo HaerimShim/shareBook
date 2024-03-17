@@ -87,7 +87,7 @@
                 <td> <a th:text="${review.comment}">연쇄적으로 펼쳐지는 비극의 탐색 </a></td>
                 <td th:text="${review.recommend} == null ? '0' : ${review.recommend}">123</td>
                 <td th:text="${#dates.format(review.date, 'yyyy-MM-dd')}">2024-03-02</td>
-                <td th:text="${review.nickname}">hrming</td>
+                <td th:text="${review.user.nickname}">hrming</td>
             </tr>
             </tbody>
         </table>

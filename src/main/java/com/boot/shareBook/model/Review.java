@@ -1,9 +1,6 @@
 package com.boot.shareBook.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -24,6 +21,8 @@ public class Review {
     private Long report;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date date;
-    private String username;
-    private String nickname;
+
+    @ManyToOne
+    @JoinColumn(name="user_id")
+    private User user;
 }

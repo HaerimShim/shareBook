@@ -3,6 +3,7 @@ package com.boot.shareBook.controller;
 import com.boot.shareBook.model.Review;
 import com.boot.shareBook.model.User;
 import com.boot.shareBook.repository.ReviewRepository;
+import com.boot.shareBook.service.ReviewService;
 import com.boot.shareBook.service.UserService;
 import com.boot.shareBook.validator.ReviewValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,9 @@ public class ReviewCtrl {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private ReviewService reviewService;
+
 
     @GetMapping("/list")
     public String getReviewList(Model model, @PageableDefault(size = 6) Pageable pageable, @RequestParam(required = false, defaultValue = "") String searchText) {
@@ -49,17 +53,8 @@ public class ReviewCtrl {
 
     @GetMapping("/write")
     public String getReviewWrite(Model model) {
-        // 로그인한 유저 정보
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        UserDetails userDetails = (UserDetails)principal;
-        String username = userDetails.getUsername();
-
-        User user = new User();
-        user = userService.getUserInfo(username);
 
         model.addAttribute("review", new Review());
-        model.addAttribute("nickname", user.getNickname());
-        model.addAttribute("username", user.getUsername());
         return "reviewWrite";
     }
 
@@ -70,7 +65,13 @@ public class ReviewCtrl {
         if(bindingResult.hasErrors()){
             return "reviewWrite";
         }
-        reviewRepository.save(review);
+
+        // 로그인한 유저 정보
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserDetails userDetails = (UserDetails)principal;
+        String username = userDetails.getUsername();
+
+        reviewService.save(username, review);
         return "redirect:/review/list";
     }
 
@@ -78,16 +79,13 @@ public class ReviewCtrl {
     public String getReviewRead(Model model, Long id) {
         Review review = reviewRepository.findById(id).orElse(null);
 
+        // 로그인한 유저 정보
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         UserDetails userDetails = (UserDetails)principal;
         String username = userDetails.getUsername();
 
-        User user = new User();
-        user = userService.getUserInfo(username);
-
-        model.addAttribute("nickname", user.getNickname());
-        model.addAttribute("username", user.getUsername());
-        model.addAttribute("review", review );
+        model.addAttribute("username", username);
+        model.addAttribute("review", review);
         return "reviewRead";
     }
 
