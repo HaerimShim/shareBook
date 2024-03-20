@@ -103,8 +103,8 @@
                 </div>
             </div>
             <div class="d-flex justify-content-center mt-2">
-                <button type="button" class="btn btn-primary mr-2" style="margin-right: 4px">추천👍</button>
-                <button type="button" class="btn btn-danger">신고⚠</button>
+                <button type="button" class="btn btn-primary mr-2" id="btnRecommend" style="margin-right: 4px">추천👍</button>
+                <button type="button" class="btn btn-danger"       id="btnReport" >신고⚠</button>
             </div>
             <div class="btn-group mr-2 mt-2" role="group" aria-label="Basic example" th:if="${review.user.username == username}" style="float: right;">
                 <a type="button" class="btn btn-outline-dark" id="btnCancel" th:href=" @{/review/list}" style="margin-right: 4px">취소</a>
@@ -210,8 +210,25 @@
         }
     });
 
+    // 추천 & 신고
+    // 1. 본인이 작성한 리뷰는 추천 & 신고할 수 없음. ( Alert처리 ) -- ok
+    // 2. 추천 버튼을 다시 누르면 취소할 수 있음. (중복 추천 불가)
+    // 3. 신고 버튼을 누를 경우, 신고 사유도 입력해야 함. (중복 가능)
 
+    var btnRecommend = document.getElementById("btnRecommend");
+    btnRecommend.addEventListener("click", function () {
+        if([[${review.user.username == username}]]) {
+            alert('본인이 작성한 리뷰는 추천할 수 없습니다.')
+        }
+        // window.location.href = "/review/recommend?id=" + [[${review.id}]];
+    });
 
+    var btnRecommend = document.getElementById("btnReport");
+    btnRecommend.addEventListener("click", function () {
+        if([[${review.user.username == username}]]) {
+            alert('본인이 작성한 리뷰는 신고할 수 없습니다.')
+        }
+    });
 </script>
 
 </body>
