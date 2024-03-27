@@ -3,13 +3,13 @@
 <head th:replace="fragments/common :: head('Share Book')">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <title>Bootstrap demo</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
     <!-- Custom styles for this template -->
     <link href="navbars.css" th:href="@{/css/navbars.css}" rel="stylesheet">
-
 </head>
 
 <body>
@@ -103,13 +103,15 @@
                 </div>
             </div>
             <div class="d-flex justify-content-center mt-2">
-                <button type="button" class="btn btn-primary mr-2" id="btnRecommend" style="margin-right: 4px">추천👍</button>
+                <button type="button" class="btn btn-primary mr-2" id="btnRecommend" style="margin-right: 4px">추천👍
+                    <span id="totalRecommendCnt" th:text="${totalRecommendCnt}" th:value="${totalRecommendCnt}"> 0 </span>
+                </button>
                 <button type="button" class="btn btn-danger"       id="btnReport" >신고⚠</button>
             </div>
             <div class="btn-group mr-2 mt-2" role="group" aria-label="Basic example" th:if="${review.user.username == username}" style="float: right;">
                 <a type="button" class="btn btn-outline-dark" id="btnCancel" th:href=" @{/review/list}" style="margin-right: 4px">취소</a>
-                <a type="button" class="btn btn-outline-dark" id="btnRevise" style="margin-right: 4px"> 수정 </a>
-                <a type="button" class="btn btn-outline-dark" id="btnDelete" > 삭제 </a>
+                <a type="button" class="btn btn-outline-dark" id="btnRevise" th:onclick="reviseReview()" style="margin-right: 4px"> 수정 </a>
+                <a type="button" class="btn btn-outline-dark" id="btnDelete" th:onclick="deleteReview()"> 삭제 </a>
             </div>
         </form>
     </div>
@@ -161,67 +163,113 @@
 <script src="/js/common.js"></script>
 <script>
     // 수정 전 확인
-    var modalRevise = document.getElementById("modalRevise");
-    var btnReviseYes = document.getElementById("btnReviseYes");
-    var btnReviseNo = document.getElementById("btnReviseNo");
+    function reviseReview() {
+        var modalRevise = document.getElementById("modalRevise");
+        var btnReviseYes = document.getElementById("btnReviseYes");
+        var btnReviseNo = document.getElementById("btnReviseNo");
 
-    document.getElementById("btnRevise").addEventListener("click", function() {
-        modalRevise.style.display = "block";
-    });
+        document.getElementById("btnRevise").addEventListener("click", function () {
+            modalRevise.style.display = "block";
+        });
 
-    btnReviseYes.addEventListener("click", function() {
-        document.getElementById('reviewRead').submit();
-        modalRevise.style.display = "none";
-    });
-
-    btnReviseNo.addEventListener("click", function() {
-        modalRevise.style.display = "none";
-        return;
-    });
-
-    window.addEventListener("click", function(event) {
-        if (event.target == modal) {
+        btnReviseYes.addEventListener("click", function () {
+            document.getElementById('reviewRead').submit();
             modalRevise.style.display = "none";
-        }
-    });
+        });
 
-    // 삭제 전 확인
-    var modalDelete = document.getElementById("modalDelete");
-    var btnDeleteYes = document.getElementById("btnDeleteYes");
-    var btnDeleteNo = document.getElementById("btnDeleteNo");
+        btnReviseNo.addEventListener("click", function () {
+            modalRevise.style.display = "none";
+            return;
+        });
 
-    document.getElementById("btnDelete").addEventListener("click", function() {
-        modalDelete.style.display = "block";
-    });
+        window.addEventListener("click", function (event) {
+            if (event.target == modal) {
+                modalRevise.style.display = "none";
+            }
+        });
+    }
 
-    btnDeleteYes.addEventListener("click", function() {
-        window.location.href = "/review/delete?id=" + [[${review.id}]];
-        modalDelete.style.display = "none";
-    });
+    function deleteReview() {
+        // 삭제 전 확인
+        var modalDelete = document.getElementById("modalDelete");
+        var btnDeleteYes = document.getElementById("btnDeleteYes");
+        var btnDeleteNo = document.getElementById("btnDeleteNo");
 
-    btnDeleteNo.addEventListener("click", function() {
-        modalDelete.style.display = "none";
-        return;
-    });
+        document.getElementById("btnDelete").addEventListener("click", function () {
+            modalDelete.style.display = "block";
+        });
 
-    window.addEventListener("click", function(event) {
-        if (event.target == modal) {
+        btnDeleteYes.addEventListener("click", function () {
+            window.location.href = "/review/delete?id=" + [[${review.id}]];
             modalDelete.style.display = "none";
-        }
-    });
+        });
+
+        btnDeleteNo.addEventListener("click", function () {
+            modalDelete.style.display = "none";
+            return;
+        });
+
+        window.addEventListener("click", function (event) {
+            if (event.target == modal) {
+                modalDelete.style.display = "none";
+            }
+        });
+    }
 
     // 추천 & 신고
     // 1. 본인이 작성한 리뷰는 추천 & 신고할 수 없음. ( Alert처리 ) -- ok
-    // 2. 추천 버튼을 다시 누르면 취소할 수 있음. (중복 추천 불가)
-    // 3. 신고 버튼을 누를 경우, 신고 사유도 입력해야 함. (중복 가능)
+    // 2. 추천 버튼을 다시 누르면 취소할 수 있음. (중복 추천 불가)   -- ok
+    // 3. 신고 버튼을 누를 경우, 신고 사유도 입력해야 함. (중복 신고 불가)
+
+    var header = $("meta[name='_csrf_header']").attr('content');
+    var token = $("meta[name='_csrf']").attr('content');
 
     var btnRecommend = document.getElementById("btnRecommend");
     btnRecommend.addEventListener("click", function () {
         if([[${review.user.username == username}]]) {
             alert('본인이 작성한 리뷰는 추천할 수 없습니다.')
+        } else{
+            $.ajax({
+                type : 'post',
+                url : '/recommend',
+                beforeSend: function(xhr){
+                    xhr.setRequestHeader(header, token);
+                },
+                data : JSON.stringify({
+                    "reviewId" : [[${review.id}]],
+                    "loginId" : [[${loginId}]],
+                }),
+                contentType : 'application/json; charset=utf-8',
+                success : function(result) {
+                    console.log(result);
+                    updateTotalRecommendCnt([[${review.id}]]);
+                },
+                error : function(request, status, error) {
+                    console.log(error)
+                }
+            })
         }
-        // window.location.href = "/review/recommend?id=" + [[${review.id}]];
     });
+
+    window.onload = function() {
+        updateTotalRecommendCnt([[${review.id}]]);
+    }
+
+    function updateTotalRecommendCnt(reviewId) {
+        $.ajax({
+            type: 'get',
+            url: '/recommend/getTotalRecommendCnt',
+            data: {
+                "reviewId": reviewId
+            },
+            success: function (totalRecommendCnt) {
+                document.getElementById("totalRecommendCnt").innerText = totalRecommendCnt;
+            },
+            error: function (request, status, error) {
+                console.log(error);
+            }
+        });
+    }
 
     var btnRecommend = document.getElementById("btnReport");
     btnRecommend.addEventListener("click", function () {

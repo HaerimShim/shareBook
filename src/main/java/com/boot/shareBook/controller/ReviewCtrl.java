@@ -1,5 +1,6 @@
 package com.boot.shareBook.controller;
 
+import com.boot.shareBook.model.Recommend;
 import com.boot.shareBook.model.Review;
 import com.boot.shareBook.model.User;
 import com.boot.shareBook.repository.ReviewRepository;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/review")
@@ -40,7 +42,6 @@ public class ReviewCtrl {
 
     @GetMapping("/list")
     public String getReviewList(Model model, @PageableDefault(size = 6) Pageable pageable, @RequestParam(required = false, defaultValue = "") String searchText) {
-//        Page<Review> reviews = reviewRepository.findAll(pageable);
         Page<Review> reviews = reviewRepository.findByTitleContainingOrContentContaining(searchText, searchText, pageable);
         int startPage = Math.max(1, reviews.getPageable().getPageNumber() - 4);
         int endPage = Math.min(reviews.getTotalPages(), reviews.getPageable().getPageNumber() +4);
@@ -84,6 +85,10 @@ public class ReviewCtrl {
         UserDetails userDetails = (UserDetails)principal;
         String username = userDetails.getUsername();
 
+        User user = userService.getUserInfo(username);
+        Long loginId = user.getId();
+
+        model.addAttribute("loginId", loginId);
         model.addAttribute("username", username);
         model.addAttribute("review", review);
         return "reviewRead";
