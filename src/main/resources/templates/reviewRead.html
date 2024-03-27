@@ -106,7 +106,9 @@
                 <button type="button" class="btn btn-primary mr-2" id="btnRecommend" style="margin-right: 4px">추천👍
                     <span id="totalRecommendCnt" th:text="${totalRecommendCnt}" th:value="${totalRecommendCnt}"> 0 </span>
                 </button>
-                <button type="button" class="btn btn-danger"       id="btnReport" >신고⚠</button>
+                <button type="button" class="btn btn-danger" id="btnReport" title="광고, 욕설, 타인 비방 내용이 포함된 경우, 신고해주세요." >신고👎
+                    <span id="totalReportCnt" th:text="${totalReportCnt}" th:value="${totalReportCnt}"> 0 </span>
+                </button>
             </div>
             <div class="btn-group mr-2 mt-2" role="group" aria-label="Basic example" th:if="${review.user.username == username}" style="float: right;">
                 <a type="button" class="btn btn-outline-dark" id="btnCancel" th:href=" @{/review/list}" style="margin-right: 4px">취소</a>
@@ -216,11 +218,6 @@
         });
     }
 
-    // 추천 & 신고
-    // 1. 본인이 작성한 리뷰는 추천 & 신고할 수 없음. ( Alert처리 ) -- ok
-    // 2. 추천 버튼을 다시 누르면 취소할 수 있음. (중복 추천 불가)   -- ok
-    // 3. 신고 버튼을 누를 경우, 신고 사유도 입력해야 함. (중복 신고 불가)
-
     var header = $("meta[name='_csrf_header']").attr('content');
     var token = $("meta[name='_csrf']").attr('content');
 
@@ -253,6 +250,7 @@
 
     window.onload = function() {
         updateTotalRecommendCnt([[${review.id}]]);
+        updateTotalReportCnt([[${review.id}]])
     }
 
     function updateTotalRecommendCnt(reviewId) {
@@ -271,12 +269,51 @@
         });
     }
 
-    var btnRecommend = document.getElementById("btnReport");
-    btnRecommend.addEventListener("click", function () {
+    function updateTotalReportCnt(reviewId) {
+        $.ajax({
+            type: 'get',
+            url: '/report/getTotalReportCnt',
+            data: {
+                "reviewId": reviewId
+            },
+            success: function (totalReportCnt) {
+                document.getElementById("totalReportCnt").innerText = totalReportCnt;
+            },
+            error: function (request, status, error) {
+                console.log(error);
+            }
+        });
+    }
+
+
+    var btnReport = document.getElementById("btnReport");
+    btnReport.addEventListener("click", function () {
         if([[${review.user.username == username}]]) {
             alert('본인이 작성한 리뷰는 신고할 수 없습니다.')
+        } else {
+            $.ajax({
+                type : 'post',
+                url : '/report',
+                beforeSend: function(xhr){
+                    xhr.setRequestHeader(header, token);
+                },
+                data : JSON.stringify({
+                    "reviewId" : [[${review.id}]],
+                    "loginId" : [[${loginId}]],
+                }),
+                contentType : 'application/json; charset=utf-8',
+                success : function(result) {
+                    console.log(result);
+                    updateTotalReportCnt([[${review.id}]]);
+                },
+                error : function(request, status, error) {
+                    console.log(error)
+                }
+            })
         }
     });
+
+
 </script>
 
 </body>

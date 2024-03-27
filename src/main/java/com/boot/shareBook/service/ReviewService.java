@@ -1,9 +1,11 @@
 package com.boot.shareBook.service;
 
 import com.boot.shareBook.model.Recommend;
+import com.boot.shareBook.model.Report;
 import com.boot.shareBook.model.Review;
 import com.boot.shareBook.model.User;
 import com.boot.shareBook.repository.RecommendRepository;
+import com.boot.shareBook.repository.ReportRepository;
 import com.boot.shareBook.repository.ReviewRepository;
 import com.boot.shareBook.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,9 @@ public class ReviewService {
 
     @Autowired
     private RecommendRepository recommendRepository;
+
+    @Autowired
+    private ReportRepository reportRepository;
 
      public Review save(String username, Review review) {
          User user = userRepository.findByUsername(username);
@@ -53,5 +58,23 @@ public class ReviewService {
 
     public List<Recommend> getRecommendList(long reviewId) {
         return recommendRepository.findByReviewId(reviewId);
+    }
+
+    public void report(Long reviewId, Long loginId) {
+        Report reportCheck = reportRepository.findByReviewIdAndLoginId(reviewId, loginId);
+
+        if(reportCheck == null) {
+            Report report = new Report();
+            report.setReviewId(reviewId);
+            report.setLoginId(loginId);
+            report.setReportCnt(1);
+            reportRepository.save(report);
+        } else {
+            reportRepository.delete(reportCheck);
+        }
+    }
+
+    public List<Report> getReportList(long reviewId) {
+        return reportRepository.findByReviewId(reviewId);
     }
 }
